@@ -1,13 +1,13 @@
 # Stampede README
 
 Dean Wampler<br/>
-[dean.wampler@thinkbiganalytics.com](mailto:dean.wampler@thinkbiganalytics.com)<br/>
+[dean@deanwampler.com](mailto:dean@deanwampler.com)<br/>
 [@StampedeWkFlow](https://twitter.com/StampedeWkFlow)<br/>
-January 8, 2013
 
-*Copyright (c) 2011-2013, Think Big Analytics, Inc. All Rights Reserved.*
+*Copyright (c) 2013, Dean Wampler, Inc. All Rights Reserved.*<br/>
+*Copyright (c) 2013, Think Big Analytics, Inc. All Rights Reserved.*
 
-Welcome to *Stampede*, the workflow tool that works as [Cthulhu](http://en.wikipedia.org/wiki/Cthulhu) intended for *nix systems, using `make` for dependency management and task seqeuencing, `bash` for scripting, and `cron` for scheduling.
+Welcome to *Stampede*, the workflow tool that works as [Cthulhu](http://en.wikipedia.org/wiki/Cthulhu) intended for *nix systems, using `make` for dependency management and task seqeuencing, `bash` for scripting, and `cron` for scheduling. *Stampede* is Apache licensed, open-source software.
 
 *Stampede* originated as an alternative workflow tool for [Hadoop](http://hadoop.apache.org), but it is not limited to Hadoop scenarios.
 
