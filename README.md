@@ -7,7 +7,7 @@ Dean Wampler<br/>
 *Copyright (c) 2013, Dean Wampler, Inc. All Rights Reserved.*<br/>
 *Copyright (c) 2013, Think Big Analytics, Inc. All Rights Reserved.*
 
-Welcome to *Stampede*, the workflow tool that works as [Cthulhu](http://en.wikipedia.org/wiki/Cthulhu) intended for *nix systems, using `make` for dependency management and task seqeuencing, `bash` for scripting, and `cron` for scheduling. Stampede is Apache licensed, open-source software.
+Welcome to *Stampede*, the workflow tool that works as [Cthulhu](http://en.wikipedia.org/wiki/Cthulhu) intended for *nix systems, using `make` for dependency management and task seqeuencing, `bash` for scripting, and `cron` for scheduling. Stampede is Apache-licensed, open-source software.
 
 *Stampede* originated as an alternative workflow tool for [Hadoop](http://hadoop.apache.org), but it is not limited to Hadoop scenarios.
 
