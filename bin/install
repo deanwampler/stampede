@@ -50,7 +50,7 @@ function answer {
 
 function use_sudo {
   [ $# -gt 0 ] && echo2 "$@" 
-  echo2 -n "Use sudo? [N=quit/y] "
+  echo2 -n "Use sudo? [y/N=quit (default)] "
   if [ "$(answer n lower_case)" = 'y' ] 
   then
     echo2 "Using sudo."
@@ -76,25 +76,14 @@ then
 fi
 
 
-install_dir="$STAMPEDE_HOME"
-ln_dir=$install_dir
+ln_name="/usr/local/stampede"
+install_dir="/usr/local/$release_name"
 if [ $leave_it -ne 0 ]
 then
-  echo2 -n "Specify where stampede should be installed: [/usr/local] "
-  parent_dir=$(answer "/usr/local")
-  install_dir=$parent_dir/$release_name
+  echo2 -n "Specify where stampede should be installed: [$install_dir] "
+  install_dir=$(answer "$install_dir")
   echo2 "Installing in \"$install_dir\":"
-  ln_dir=$parent_dir/stampede
-  while [ ! -d "$parent_dir" ]
-  do
-    echo2 "Creating $parent_dir:"
-    $SUDO mkdir -p "$parent_dir"
-    if [ $? -ne 0 ]
-    then
-      SUDO=$(use_sudo "I couldn't create the parent directory \"$parent_dir\".")
-      [ $? -ne 0 ] && exit 1
-    fi
-  done
+  ln_name="$(dirname $install_dir)/stampede"
   if [ -d "$install_dir" ]
   then
     echo2 "$install_dir already exists. Should I delete it first?"
@@ -114,34 +103,36 @@ then
   fi
   while [ ! -d "$install_dir" ]
   do
-    if [ ! -w "$parent_dir" -a -z "$SUDO" ]
-    then
-      SUDO=$(use_sudo "I can't copy into the directory \"$parent_dir\".")
-      [ $? -ne 0 ] && exit 1
-    fi
-    echo2 "Copying $STAMPEDE_HOME to $install_dir"
-    $SUDO mkdir -p $install_dir
+    echo2 "Creating $install_dir:"
+    $SUDO mkdir -p "$install_dir"
     if [ $? -ne 0 ]
     then
-      echo2 "I couldn't create the root installation directory \"$install_dir\"! Quitting..."
-      exit 1
-    fi
-    for d in ${FILES_TO_INSTALL[@]}
-    do
-      echo2 "  Copying: $d"
-      $SUDO cp -r $STAMPEDE_HOME/$d $install_dir/$d
-      if [ $? -ne 0 ]
-      then
-        echo2 "I couldn't copy \"$STAMPEDE_HOME/$d\" into the directory \"$install_dir\"! Quitting..."
-        exit 1
-      fi
-    done
-    if [ "$install_dir" != "$ln_dir" ]
-    then
-      echo2 "Creating a symlink between $install_dir and $ln_dir:"
-      $SUDO ln -s $install_dir $ln_dir
+      SUDO=$(use_sudo "I couldn't create the installation directory \"$install_dir\".")
+      [ $? -ne 0 ] && exit 1
     fi
   done
+
+  if [ ! -w "$install_dir" -a -z "$SUDO" ]
+  then
+    SUDO=$(use_sudo "I can't copy into the directory \"$install_dir\".")
+    [ $? -ne 0 ] && exit 1
+  fi
+  echo2 "Copying $STAMPEDE_HOME to $install_dir"
+  for d in ${FILES_TO_INSTALL[@]}
+  do
+    echo2 "  Copying: $d"
+    $SUDO cp -r $STAMPEDE_HOME/$d $install_dir/$d
+    if [ $? -ne 0 ]
+    then
+      echo2 "I couldn't copy \"$STAMPEDE_HOME/$d\" into the directory \"$install_dir\"! Quitting..."
+      exit 1
+    fi
+  done
+  if [ "$install_dir" != "$ln_name" ]
+  then
+    echo2 "Creating a symlink between $install_dir and $ln_name:"
+    $SUDO ln -s $install_dir $ln_name
+  fi
 fi
 
 # Copy the examples/stampederc to the appropriate system place.
@@ -149,10 +140,12 @@ fi
 function copy_stampederc {
   target=$1
   parent_dir=$(dirname $target)
+  $SUDO mkdir -p $parent_dir
   if [ ! -w "$parent_dir" -a -z "$SUDO" ]
   then
     SUDO=$(use_sudo "You don't have write permissions for the directory \"$install_dir\".")
     [ $? -ne 0 ] && return 1
+    $SUDO mkdir -p $parent_dir
   fi    
   echo2 "Copying $STAMPEDE_HOME/examples/stampederc to $target:"
   $SUDO cp $STAMPEDE_HOME/examples/stampederc $target
@@ -164,30 +157,35 @@ function copy_stampederc {
   return 0
 }
 
-while [ 0 ]
+while true
 do
-  echo2 "Specify a directory where I'll copy a customizable \"stampederc\" file."
+  echo2 "Specify a directory where a customizable \"stampederc\" file should be copied."
   echo2 "(We'll loop, so you can specify more than one if you want...)"
-  echo2 "  1. /etc/stampederc"
-  echo2 "  2. /etc/sysconfig/stampede"
-  echo2 "  3. $HOME/.stampederc"
-  echo2 "  4. You specify a target directory/file."
-  echo2 "  5. Skip this step and continue (default)."
-  echo2 -n "[1/2/3/4/5 (default)] "
+  echo2 "  1. $install_dir/etc/stampederc"
+  echo2 "  2. /etc/stampederc"
+  echo2 "  3. /etc/sysconfig/stampede"
+  echo2 "  4. $HOME/.stampederc"
+  echo2 "  5. You specify a directory."
+  echo2 "  6. Skip this step and continue (default)."
+  echo2 -n "[1/2/3/4/5/6 or any other key (default)] "
   case $(answer) in
     1) 
-      copy_stampederc /etc/stampederc
+      copy_stampederc $install_dir/etc/stampederc
       [ $? -ne 0 ] && exit 1
       ;;
     2) 
-      copy_stampederc /etc/sysconfig/stampede
+      copy_stampederc /etc/stampederc
       [ $? -ne 0 ] && exit 1
       ;;
     3) 
-      copy_stampederc $HOME/.stampederc
+      copy_stampederc /etc/sysconfig/stampede
       [ $? -ne 0 ] && exit 1
       ;;
     4) 
+      copy_stampederc $HOME/.stampederc
+      [ $? -ne 0 ] && exit 1
+      ;;
+    5) 
       echo2 "Target file name: "
       dir=$(answer)
       if [ "$dir" = "" ]
@@ -204,5 +202,5 @@ do
   esac
 done
 
-echo2 "Finished! Please add $ln_dir/bin to your PATH and $ln_dir/man to your MANPATH."
+echo2 "Finished! Please add $ln_name/bin to your PATH and $ln_name/man to your MANPATH."
 echo2 "Then, run \"stampede --help\" for more information." 
