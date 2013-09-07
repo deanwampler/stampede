@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #------------------------------------------------------------------------------
 # Copyright (c) 2011-2013, Think Big Analytics, Inc. All Rights Reserved.
+# Copyright (c) 2013, Concurrent Thought. All Rights Reserved.
 #------------------------------------------------------------------------------
 # create-project - Create a new Stampede project.
 
@@ -52,7 +53,8 @@ function answer {
 
 echo2 "$0:"
 
-installdir="$HOME/stampede"
+# defaults
+installdir="$PWD"
 makefile=Makefile
 makefilepath=$1
 if [ -n "$makefilepath" ]
@@ -65,8 +67,8 @@ then
   [ $? -ne 0 ] && exit 1
 else
   echo2 -n "Specify the directory for your new project: [$installdir] "
-  # Convert potential '~' to $HOME.
-  installdir=$(echo $(answer "$installdir") | sed -e "s?~?$HOME?")
+  # expand '~' and environment variables.
+  installdir=$(eval echo $(answer "$installdir"))
   if [ -d "$installdir" ]
   then
     echo2 -n "$installdir already exists. Remove it? [N/y] "

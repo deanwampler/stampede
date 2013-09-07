@@ -1,9 +1,9 @@
 # Announcing "Stampede"
 
 Dean Wampler<br/>
-[dean.wampler@thinkbiganalytics.com](mailto:dean.wampler@thinkbiganalytics.com)<br/>
+[dean.wampler@concurrentthought.com](mailto:dean.wampler@concurrentthought.com)<br/>
 [@StampedeWkFlow](https://twitter.com/StampedeWkFlow)<br/>
-[@thinkBigA](https://twitter.com/thinkBigA/)<br/>
+[@deanwampler](https://twitter.com/deanwampler/)<br/>
 January 8, 2013
 
 When you're building nontrivial workflows, you need a tool that lets you express the dependencies between tasks, schedule their execution, detect failures and attempt retries, etc. You also want that tool to be concise, easy to use, yet powerful.

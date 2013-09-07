@@ -1,5 +1,6 @@
 #------------------------------------------------------------------------------
 # Copyright (c) 2011-2013, Think Big Analytics, Inc. All Rights Reserved.
+# Copyright (c) 2013, Concurrent Thought. All Rights Reserved.
 #------------------------------------------------------------------------------
 # bin/env.sh -
 # Environment variable definitions used by Stampede.

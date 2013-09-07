@@ -20,7 +20,7 @@ function dotest {
 echo2 "  timestamp settings tests:"
 
 msg=$(dotest timestamp)
-expected="2012-11-20 01:02:03"
+expected="2012-12-20 01:02:03"
 [[ $msg =~ $expected ]] || die "Unexpected message for timestamp and no arguments: $msg"
 
 for sep in ' ' '='
@@ -39,7 +39,7 @@ do
     do
       args="--hour${sep}05 --${min}${sep}06 --${sec}${sep}07"
       msg=$(dotest timestamp $args)
-      expected="2012-11-20 05:06:07"
+      expected="2012-12-20 05:06:07"
       [[ $msg =~ $expected ]] || die "Unexpected message for args \"$args\": $msg"
     done
   done

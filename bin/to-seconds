@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #------------------------------------------------------------------------------
 # Copyright (c) 2011-2013, Think Big Analytics, Inc. All Rights Reserved.
+# Copyright (c) 2013, Concurrent Thought. All Rights Reserved.
 #------------------------------------------------------------------------------
 # to-seconds - Compute the seconds for the input time period.
 
@@ -30,14 +31,9 @@ EOF
 exit 0
 fi
 
-nn=$(echo $1 | sed -e 's/[^0-9]\+//')
-units=$(echo $1 | sed -e 's/[0-9]\+//')
-if [ -z "$nn" ]
-then
-  let n=0
-else
-  let n=$nn
-fi
+nn=$(echo $1 | sed -e 's/[^0-9]*$//')
+units=$(echo $1 | sed -e 's/^[0-9]*//')
+let n=${nn:-0}
 if [ -z "$units" -o "$units" = "s" ]
 then
   echo $n

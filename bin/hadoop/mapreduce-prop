@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #------------------------------------------------------------------------------
 # Copyright (c) 2011-2013, Think Big Analytics, Inc. All Rights Reserved.
+# Copyright (c) 2013, Concurrent Thought. All Rights Reserved.
 #------------------------------------------------------------------------------
 # mapreduce-prop - Show the value for one or more Hadoop MapReduce properties.
 # The "hadoop" command must be on your path. 

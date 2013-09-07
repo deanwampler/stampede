@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #------------------------------------------------------------------------------
 # Copyright (c) 2011-2013, Think Big Analytics, Inc. All Rights Reserved.
+# Copyright (c) 2013, Concurrent Thought. All Rights Reserved.
 #------------------------------------------------------------------------------
 # to-time-interval - Compute the a time-interval string specified by the argument.
 
@@ -31,8 +32,8 @@ EOF
 exit 0
 fi
 
-nn=$(echo $1 | sed -e 's/[^0-9]\+//')
-units=$(echo $1 | sed -e 's/[0-9]\+//')
+nn=$(echo $1 | sed -e 's/[^0-9]*$//')
+units=$(echo $1 | sed -e 's/^[0-9]*//')
 if [ -z "$nn" ]
 then
   let n=0

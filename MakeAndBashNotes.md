@@ -84,24 +84,37 @@ Actually, we used a useful GNU `make` technique here; we specified `three` and `
 
 If you run `make --jobs` with this version of `Makefile`, you'll still get the synchronous output.
 
-# Setting Make Variables with Shell Commands or File "Globs"
+### Immediated vs. Deferred Variable Definitions
+
+Consider these two variable definitions:
+
+    FOO  = bar
+    FOO := bar
+
+(I lined up the `=`; the amount of whitespace doesn't matter.) The first assignment is deferred until needed, while the second happens immediately. For this example, it doesn't matter, which one is used, since the right-hand side is a constant. However, consider this example:
+
+    TIME  = $(shell date)
+    TIME := $(shell date)
+
+Now it *does* matter which one you use. Usually, you'll want `date` called once to set a global value for `TIME` for this run, so you'll want to use the second form. However, if you want to redefine a make variable with a shell function each time it is used, then use the first form.
+
+### Setting Make Variables with Shell Commands or File "Globs"
 
 In GNU `make`, you can run shell commands and file "globs" as follows:
 
-    EPOCH_SECONDS = $(shell date +%s)
-    SH_FILES      = $(wildcard bin/*.sh)
+    EPOCH_SECONDS := $(shell date +%s)
+    SH_FILES      := $(wildcard bin/*.sh)
 
     ...
 
     show_vars:
-        @echo ${EPOCH_SECONDS}
-        @echo ${SH_FILES}
+        @echo "epoch seconds: ${EPOCH_SECONDS}"
+        @echo "files: ${SH_FILES}"
 
+Note that I'm using the immediate form of assignment with `:=`. At the time I ran `make show_vars`, I got the following output:
 
-At the moment when I ran `make show_vars`, I got the following output:
-
-    1357151251
-    bin/common.sh bin/env.sh bin/log.sh
+    epoch seconds: 1357151251
+    files: bin/common.sh bin/env.sh bin/log.sh
 
 Note that `make` variables must be referenced using the `${...}` syntax, unlike `bash` shell variables, where the `{` and `}` are only required to separate text, e.g., something like `${prefix}name`.
 

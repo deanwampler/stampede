@@ -1,6 +1,7 @@
 # README for Hadoop Workflow Example
 
-*Copyright (c) 2011-2013, Think Big Analytics, Inc. All Rights Reserved.*
+*Copyright (c) 2011-2013, Think Big Analytics, Inc. All Rights Reserved.*<br/>
+*Copyright (c) 2013, Concurrent Thought. All Rights Reserved.*
 
 In this example, we demonstrate a Hadoop workflow with several steps:
 

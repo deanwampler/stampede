@@ -17,7 +17,7 @@ OUTFORMAT="%Y-%m-%d %H:%M:%S%z"
 echo "  format tests:"
 
 results=$($DATES --date="$INDATE" --informat="$INFORMAT" --format="$OUTFORMAT")
-[ "$results" = "2012-11-20 01:02:03$TIMEZONE" ] || die "\"$INFORMAT\" format failed! returned <$results>"
+[ "$results" = "2012-12-20 01:02:03$TIMEZONE" ] || die "\"$INFORMAT\" format failed! returned <$results>"
 
 results=$($DATES --date="$INDATE" --informat=rfc-3999 --format=rfc-3999)
 [ "$results" = "$INDATE" ] || die "rfc-3999 format failed! returned <$results>"
@@ -28,7 +28,7 @@ results=$($DATES --date="$INDATE" --informat=rfc-3999 --format='%Y')
 [ "$results" = "2012" ] || die "%Y failed! returned <$results>"
 
 results=$($DATES --date="$INDATE" --informat=rfc-3999 --format='%m')
-[ "$results" = "11" ] || die "%m failed! returned <$results>"
+[ "$results" = "12" ] || die "%m failed! returned <$results>"
 
 results=$($DATES --date="$INDATE" --informat=rfc-3999 --format='%d')
 [ "$results" = "20" ] || die "%d failed! returned <$results>"
@@ -46,7 +46,7 @@ results=$($DATES --date="$INDATE" --informat=rfc-3999 --format='%s')
 [ "$results" = "$EPOCH_SECOND" ] || die "%s failed! returned <$results>"
 
 results=$($DATES --date="$INDATE" --informat=rfc-3999 --format='%w')
-[ "$results" = "2" ] || die "%w failed! returned <$results>"
+[ "$results" = "4" ] || die "%w failed! returned <$results>"
 
 results=$($DATES --date="$INDATE" --informat=rfc-3999 --format='%Z')
 [ "$results" = "$TIMEZONE_NAME" ] || die "%Z failed! returned <$results>"
@@ -57,19 +57,19 @@ results=$($DATES --date="$INDATE" --informat=rfc-3999 --format='%z')
 echo "  range tests:"
 
 results=$($DATES --date="$INDATE" --informat="$INFORMAT" --format="$OUTFORMAT" -1:-1 d)
-[ "$results" = "2012-11-19 01:02:03$TIMEZONE" ] || die "failed! returned <$results>"
+[ "$results" = "2012-12-19 01:02:03$TIMEZONE" ] || die "failed! returned <$results>"
 
 results=$($DATES --date="$INDATE" --informat="$INFORMAT" --format="$OUTFORMAT" -2:-1 d)
-[ "$results" = "2012-11-18 01:02:03$TIMEZONE 2012-11-19 01:02:03$TIMEZONE" ] || die "failed! returned <$results>"
+[ "$results" = "2012-12-18 01:02:03$TIMEZONE 2012-12-19 01:02:03$TIMEZONE" ] || die "failed! returned <$results>"
 
 results=$($DATES --date="$INDATE" --informat="$INFORMAT" --format="$OUTFORMAT" 0:0 d)
-[ "$results" = "2012-11-20 01:02:03$TIMEZONE" ] || die "failed! returned <$results>"
+[ "$results" = "2012-12-20 01:02:03$TIMEZONE" ] || die "failed! returned <$results>"
 
 results=$($DATES --date="$INDATE" --informat="$INFORMAT" --format="$OUTFORMAT" 1:2 d)
-[ "$results" = "2012-11-21 01:02:03$TIMEZONE 2012-11-22 01:02:03$TIMEZONE" ] || die "failed! returned <$results>"
+[ "$results" = "2012-12-21 01:02:03$TIMEZONE 2012-12-22 01:02:03$TIMEZONE" ] || die "failed! returned <$results>"
 
 results=$($DATES --date="$INDATE" --informat="$INFORMAT" --format="$OUTFORMAT")
-[ "$results" = "2012-11-20 01:02:03$TIMEZONE" ] || die "failed! returned <$results>"
+[ "$results" = "2012-12-20 01:02:03$TIMEZONE" ] || die "failed! returned <$results>"
 
 results=$($DATES --date="$INDATE" --informat="$INFORMAT" --format="%d" -2:)
 [ "$results" = "18 19 20" ] || die "failed! returned <$results>"
@@ -102,7 +102,7 @@ results=$($DATES --date="$INDATE" --informat="$INFORMAT" --format="%Y" -1:1 y)
 [ "$results" = "2011 2012 2013" ] || die "failed! returned <$results>"
 
 results=$($DATES --date="$INDATE" --informat="$INFORMAT" --format="%m" -1:1 m)
-[ "$results" = "10 11 12" ] || die "failed! returned <$results>"
+[ "$results" = "11 12 01" ] || die "failed! returned <$results>"
 
 if [ $(uname) = "Darwin" ]
 then

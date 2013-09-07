@@ -1,5 +1,6 @@
 #------------------------------------------------------------------------------
 # Copyright (c) 2011-2013, Think Big Analytics, Inc. All Rights Reserved.
+# Copyright (c) 2013, Concurrent Thought. All Rights Reserved.
 #------------------------------------------------------------------------------
 # common.sh - Common functions, etc. used by the other scripts.
 # Notes:
@@ -50,7 +51,7 @@ Error message: $@.
 See $STAMPEDE_LOG_FILE for details.
 EOF
 	fi
-  $EXIT
+    $EXIT
 }
 
 function handle_signal {

@@ -10,13 +10,13 @@ TEST_DIR=$(dirname ${BASH_SOURCE[0]})
 echo "  YEAR, MONTH, etc. tests:"
 
 [ "$YEAR"   = "2012" ] || die "YEAR: expected <2012> != actual <$YEAR>"
-[ "$MONTH"  = "11"   ] || die "MONTH: expected <11> != actual <$MONTH>"
+[ "$MONTH"  = "12"   ] || die "MONTH: expected <12> != actual <$MONTH>"
 [ "$DAY"    = "20"   ] || die "DAY: expected <20> != actual <$DAY>"
 [ "$HOUR"   = "01"   ] || die "HOUR: expected <01> != actual <$HOUR>"
 [ "$MINUTE" = "02"   ] || die "MINUTE: expected <02> != actual <$MINUTE>"
 [ "$SECOND" = "03"   ] || die "SECOND: expected <03> != actual <$SECOND>"
 [ "$YEAR_MINUS_1_DAY"  = "2012" ] || die "YEAR_MINUS_1_DAY: expected <2012> != actual <$YEAR_MINUS_1_DAY>"
-[ "$MONTH_MINUS_1_DAY" = "11"   ] || die "MONTH_MINUS_1_DAY: expected <11> != actual <$MONTH_MINUS_1_DAY>"
+[ "$MONTH_MINUS_1_DAY" = "12"   ] || die "MONTH_MINUS_1_DAY: expected <12> != actual <$MONTH_MINUS_1_DAY>"
 [ "$DAY_MINUS_1_DAY"   = "19"   ] || die "DAY_MINUS_1_DAY: expected <19> != actual <$DAY_MINUS_1_DAY>"
 # Because of issue where we have to use the same timezone as the
 # current machine, we can't assume a particular value of the
@@ -25,9 +25,9 @@ es=$($STAMPEDE_HOME/bin/dates --date="$STAMPEDE_START_TIME" --informat="$STAMPED
 [ "$EPOCH_SECOND" = "$es" ] || die "EPOCH_SECOND: expected <$es> != actual <$EPOCH_SECOND>"
 
 echo "  DAY_OF_WEEK* tests:"
-[ "$DAY_OF_WEEK_NUMBER" = "2"    ] || die "DAY_OF_WEEK_NUMBER: expected <2> != actual <$DAY_OF_WEEK_NUMBER>"
-[ "$DAY_OF_WEEK_ABBREV" = "Tue"  ] || die "DAY_OF_WEEK_ABBREV: expected <Tue> != actual <$DAY_OF_WEEK_ABBREV>"
-[ "$DAY_OF_WEEK" = "Tuesday"     ] || die "DAY_OF_WEEK: expected <Tuesday> != actual <$DAY_OF_WEEK>"
+[ "$DAY_OF_WEEK_NUMBER" = "4"    ] || die "DAY_OF_WEEK_NUMBER: expected <4> != actual <$DAY_OF_WEEK_NUMBER>"
+[ "$DAY_OF_WEEK_ABBREV" = "Thu"  ] || die "DAY_OF_WEEK_ABBREV: expected <Thu> != actual <$DAY_OF_WEEK_ABBREV>"
+[ "$DAY_OF_WEEK" = "Thursday"    ] || die "DAY_OF_WEEK: expected <Thursday> != actual <$DAY_OF_WEEK>"
 
 echo "  time_fields test:"
 actual=$(time_fields %s)
