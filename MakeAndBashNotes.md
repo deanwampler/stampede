@@ -91,7 +91,7 @@ Consider these two variable definitions:
     FOO  = bar
     FOO := bar
 
-(I lined up the `=`; the amount of whitespace doesn't matter.) The first assignment is deferred until needed, while the second happens immediately. For this example, it doesn't matter, which one is used, since the right-hand side is a constant. However, consider this example:
+(I lined up the `=`; the amount of whitespace doesn't matter.) The first assignment is deferred until needed, while the second happens immediately. For this example, it doesn't matter which one is used, since the right-hand side is a constant. However, consider this example:
 
     TIME  = $(shell date)
     TIME := $(shell date)
